@@ -13,6 +13,25 @@ public class LongAttributeWriterTest {
 
     private final LongAttributeWriter writer = new LongAttributeWriter();
 
+    @Test public void writeMin() {
+        final List<String> record = new ArrayList<>(1);
+        record.add(null);
+        final StringListAttribute<Long> attribute = new StringListAttribute<>(Long.class, 0);
+
+        writer.write(record, attribute, -9223372036854775808L);
+        assertEquals("-9223372036854775808", record.get(0));
+    }
+
+    @Test public void writeMax() {
+        final List<String> record = new ArrayList<>(1);
+        record.add(null);
+        final StringListAttribute<Long> attribute = new StringListAttribute<>(Long.class, 0);
+
+        writer.write(record, attribute, 9223372036854775807L);
+
+        assertEquals("9223372036854775807", record.get(0));
+    }
+
     @Test public void writeValue() {
         final List<String> record = new ArrayList<>(1);
         record.add(null);

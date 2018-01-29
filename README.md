@@ -18,7 +18,17 @@ See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringl
  for a full working example with:
 * Validator
 * RecordFactory
-* Reading / writing of types: String, Integer, Enum
+* Build in reading / writing of types
+  * String
+  * Enum
+  * Byte
+  * Short
+  * Integer
+  * Long
+  * Float
+  * Double
+  * BigInteger
+  * BigDecimal
 
 ## Maven
 

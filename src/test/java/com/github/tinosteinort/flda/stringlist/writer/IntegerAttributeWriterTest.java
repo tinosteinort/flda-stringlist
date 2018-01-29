@@ -13,6 +13,26 @@ public class IntegerAttributeWriterTest {
 
     private final IntegerAttributeWriter writer = new IntegerAttributeWriter();
 
+    @Test public void writeMin() {
+        final List<String> record = new ArrayList<>(1);
+        record.add(null);
+        final StringListAttribute<Integer> attribute = new StringListAttribute<>(Integer.class, 0);
+
+        writer.write(record, attribute, -2147483648);
+
+        assertEquals("-2147483648", record.get(0));
+    }
+
+    @Test public void writeMax() {
+        final List<String> record = new ArrayList<>(1);
+        record.add(null);
+        final StringListAttribute<Integer> attribute = new StringListAttribute<>(Integer.class, 0);
+
+        writer.write(record, attribute, 2147483647);
+
+        assertEquals("2147483647", record.get(0));
+    }
+
     @Test public void writeValue() {
         final List<String> record = new ArrayList<>(1);
         record.add(null);
