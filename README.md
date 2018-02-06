@@ -16,10 +16,11 @@ The task of FLDA-StringList is _not_ to split a String or row into a `List<Strin
 
 See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringlist/fullexample/StringListInterfaceTest.java)
  for a full working example with:
-* Validator
+* Size Validator
 * RecordFactory
 * Build in reading / writing of types
   * String
+  * Boolean
   * Enum
   * Byte
   * Short
@@ -29,6 +30,7 @@ See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringl
   * Double
   * BigInteger
   * BigDecimal
+* extending a config and overwrite behavior for an attribute
 
 ## Maven
 
