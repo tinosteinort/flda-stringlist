@@ -12,7 +12,7 @@ Fruit;Cherry;30
 Fruit;Apple;5
 Vegetable;Potato;23
 ```
-The task of FLDA-StringList is _not_ to split a String or row into a `List<String>`, it operates on records of this type.  
+The task of `flda-stringlist` is _not_ to split a String or row into a `List<String>`, it operates on records of this type.  
 
 See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringlist/fullexample/StringListInterfaceTest.java)
  for a full working example with:
@@ -34,7 +34,8 @@ See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringl
 
 ## Maven
 
-To use `FLDA - StringList`, include the following artifacts:
+To use `flda-stringlist`, include the following artifacts:
+
 *TODO*: not available on Maven Central at the moment.
 ```xml
 <dependency>
