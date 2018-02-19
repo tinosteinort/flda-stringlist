@@ -38,7 +38,7 @@ public class StringListInterfaceTest {
         // Convert line to Record Type
         final List<String> record = Arrays.asList(lineFromFile.split(";"));
 
-        final ReadAccessor<List<String>, StringListAttribute<?>> readAccessor = new ReadAccessor<>(config, record);
+        final ReadAccessor<List<String>, StringListAttribute<?>> readAccessor = config.newReadAccessor(record);
 
         assertEquals("Donnie", readAccessor.read(InterfaceDescription.FIRSTNAME));
         assertEquals("Doe", readAccessor.read(InterfaceDescription.LASTNAME));
@@ -50,7 +50,7 @@ public class StringListInterfaceTest {
 
         final List<String> record = config.createNewRecord();
 
-        final WriteAccessor<List<String>, StringListAttribute<?>> writeAccessor = new WriteAccessor<>(config, record);
+        final WriteAccessor<List<String>, StringListAttribute<?>> writeAccessor = config.newWriteAccessor(record);
 
         writeAccessor.write(InterfaceDescription.FIRSTNAME, "Bimmel");
         writeAccessor.write(InterfaceDescription.LASTNAME, "Bammel");

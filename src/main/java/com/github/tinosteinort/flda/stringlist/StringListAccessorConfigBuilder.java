@@ -5,7 +5,9 @@ import com.github.tinosteinort.flda.accessor.AccessorConfigBuilder;
 import com.github.tinosteinort.flda.accessor.Attribute;
 import com.github.tinosteinort.flda.accessor.RecordValidator;
 import com.github.tinosteinort.flda.accessor.reader.AttributeReader;
+import com.github.tinosteinort.flda.accessor.reader.ReadAccessor;
 import com.github.tinosteinort.flda.accessor.writer.AttributeWriter;
+import com.github.tinosteinort.flda.accessor.writer.WriteAccessor;
 import com.github.tinosteinort.flda.stringlist.reader.BigDecimalAttributeReader;
 import com.github.tinosteinort.flda.stringlist.reader.BigIntegerAttributeReader;
 import com.github.tinosteinort.flda.stringlist.reader.BooleanAttributeReader;
@@ -195,6 +197,16 @@ public class StringListAccessorConfigBuilder extends AccessorConfigBuilder<List<
 
             @Override public RecordValidator<List<String>> writeValidator() {
                 return innerConfig.writeValidator();
+            }
+
+            @Override public ReadAccessor<List<String>, StringListAttribute<?>> newReadAccessor(
+                    final List<String> record) {
+                return new ReadAccessor<>(this, record);
+            }
+
+            @Override public WriteAccessor<List<String>, StringListAttribute<?>> newWriteAccessor(
+                    final List<String> record) {
+                return new WriteAccessor<>(this, record);
             }
         };
     }
