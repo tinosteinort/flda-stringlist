@@ -1,10 +1,10 @@
 package com.github.tinosteinort.flda.stringlist.fullexample;
 
-import com.github.tinosteinort.flda.accessor.AccessorConfig;
 import com.github.tinosteinort.flda.accessor.reader.ReadAccessor;
 import com.github.tinosteinort.flda.accessor.writer.WriteAccessor;
-import com.github.tinosteinort.flda.stringlist.DefaultStringListAccessorConfigBuilder;
 import com.github.tinosteinort.flda.stringlist.SizeValidator;
+import com.github.tinosteinort.flda.stringlist.StringListAccessorConfig;
+import com.github.tinosteinort.flda.stringlist.StringListAccessorConfigBuilder;
 import com.github.tinosteinort.flda.stringlist.StringListAttribute;
 import com.github.tinosteinort.flda.stringlist.StringListFactory;
 import com.github.tinosteinort.flda.stringlist.reader.EnumAttributeReader;
@@ -21,7 +21,9 @@ public class StringListInterfaceTest {
 
     private final SizeValidator validator = new SizeValidator(InterfaceDescription.ATTRIBUTE_COUNT);
 
-    private final AccessorConfig<List<String>, StringListAttribute<?>> config = new DefaultStringListAccessorConfigBuilder()
+    private final StringListAccessorConfig config = new StringListAccessorConfigBuilder()
+                    .withDefaultReaders()
+                    .withDefaultWriters()
                     .registerReader(Type.class, new EnumAttributeReader<>(Type.class))
                     .registerWriter(Type.class, new EnumAttributeWriter<>())
                     .withRecordFactory(new StringListFactory(InterfaceDescription.ATTRIBUTE_COUNT))
