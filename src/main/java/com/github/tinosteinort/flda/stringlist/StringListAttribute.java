@@ -2,13 +2,15 @@ package com.github.tinosteinort.flda.stringlist;
 
 import com.github.tinosteinort.flda.accessor.Attribute;
 
+import java.util.Objects;
+
 public class StringListAttribute<T> implements Attribute<T> {
 
     private final Class<T> type;
     private final int index;
 
     public StringListAttribute(final Class<T> type, final int index) {
-        this.type = type;
+        this.type = Objects.requireNonNull(type, "type must not be NULL");
         this.index = index;
     }
 
@@ -18,6 +20,13 @@ public class StringListAttribute<T> implements Attribute<T> {
 
     public int getIndex() {
         return index;
+    }
+
+    @Override public String toString() {
+        return "StringListAttribute{" +
+                "type=" + type +
+                ", index=" + index +
+                '}';
     }
 
     @Override public boolean equals(Object o) {
