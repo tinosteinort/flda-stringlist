@@ -36,7 +36,6 @@ See [StringListInterfaceTest](src/test/java/com/github/tinosteinort/flda/stringl
 
 To use `flda-stringlist`, include the following artifacts:
 
-*TODO*: not available on Maven Central at the moment.
 ```xml
 <dependency>
     <groupId>com.github.tinosteinort</groupId>
@@ -48,4 +47,11 @@ To use `flda-stringlist`, include the following artifacts:
     <artifactId>flda-stringlist</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+## Java 9 Module
+
+The Automatic Module Name of this library is:
+```
+com.github.tinosteinort.flda.stringlist
 ```
