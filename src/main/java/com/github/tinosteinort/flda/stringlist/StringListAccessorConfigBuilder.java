@@ -3,11 +3,10 @@ package com.github.tinosteinort.flda.stringlist;
 import com.github.tinosteinort.flda.accessor.AccessorConfig;
 import com.github.tinosteinort.flda.accessor.AccessorConfigBuilder;
 import com.github.tinosteinort.flda.accessor.Attribute;
+import com.github.tinosteinort.flda.accessor.AttributeReader;
+import com.github.tinosteinort.flda.accessor.AttributeWriter;
+import com.github.tinosteinort.flda.accessor.RecordFactory;
 import com.github.tinosteinort.flda.accessor.RecordValidator;
-import com.github.tinosteinort.flda.accessor.reader.AttributeReader;
-import com.github.tinosteinort.flda.accessor.reader.ReadAccessor;
-import com.github.tinosteinort.flda.accessor.writer.AttributeWriter;
-import com.github.tinosteinort.flda.accessor.writer.WriteAccessor;
 import com.github.tinosteinort.flda.stringlist.reader.BigDecimalAttributeReader;
 import com.github.tinosteinort.flda.stringlist.reader.BigIntegerAttributeReader;
 import com.github.tinosteinort.flda.stringlist.reader.BooleanAttributeReader;
@@ -32,8 +31,6 @@ import com.github.tinosteinort.flda.stringlist.writer.StringAttributeWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * AccessorConfigBuilder for {@link StringListAttribute}.
@@ -41,8 +38,8 @@ import java.util.function.Supplier;
  *  To read and write Enums, custom reader/writer with the specific type has to be registered:
  *  <pre>
  *      ...
- *      .registerReader(EnumType.class, new EnumAttributeReader<>(EnumType.class))
- *      .registerWriter(EnumType.class, new EnumAttributeWriter<>())
+ *      .registerReader(EnumType.class, new EnumAttributeReader&lt;&gt;(EnumType.class))
+ *      .registerWriter(EnumType.class, new EnumAttributeWriter&lt;&gt;())
  *      ...
  *  </pre>
  */
@@ -140,7 +137,8 @@ public class StringListAccessorConfigBuilder extends AccessorConfigBuilder<List<
         return (StringListAccessorConfigBuilder) super.registerWriter(attribute, writer);
     }
 
-    @Override public StringListAccessorConfigBuilder withRecordFactory(final Supplier<List<String>> recordFactory) {
+    @Override public StringListAccessorConfigBuilder withRecordFactory(
+            final RecordFactory<List<String>> recordFactory) {
         return (StringListAccessorConfigBuilder) super.withRecordFactory(recordFactory);
     }
 
@@ -153,61 +151,8 @@ public class StringListAccessorConfigBuilder extends AccessorConfigBuilder<List<
     }
 
     @Override public StringListAccessorConfig build() {
-
-        final AccessorConfig<List<String>, StringListAttribute<?>> innerConfig = super.build();
-
-        return new StringListAccessorConfig() {
-            @Override public <ATTR_TYPE> AttributeReader<List<String>, ATTR_TYPE, StringListAttribute<?>> readerFor(
-                    final StringListAttribute<?> attribute) {
-                return innerConfig.readerFor(attribute);
-            }
-
-            @Override public <ATTR_TYPE> AttributeWriter<List<String>, ATTR_TYPE, StringListAttribute<?>> writerFor(
-                    final StringListAttribute<?> attribute) {
-                return innerConfig.writerFor(attribute);
-            }
-
-            @Override public List<String> createNewRecord() {
-                return innerConfig.createNewRecord();
-            }
-
-            @Override public void validateForRead(final List<String> record) {
-                innerConfig.validateForRead(record);
-            }
-
-            @Override public void validateForWrite(final List<String> record) {
-                innerConfig.validateForWrite(record);
-            }
-
-            @Override public Map<Class<?>, AttributeReader<List<String>, ?, ? extends Attribute<?>>> readers() {
-                return innerConfig.readers();
-            }
-
-            @Override public Map<Class<?>, AttributeWriter<List<String>, ?, ? extends Attribute<?>>> writers() {
-                return innerConfig.writers();
-            }
-
-            @Override public Supplier<List<String>> recordFactory() {
-                return innerConfig.recordFactory();
-            }
-
-            @Override public RecordValidator<List<String>> readValidator() {
-                return innerConfig.readValidator();
-            }
-
-            @Override public RecordValidator<List<String>> writeValidator() {
-                return innerConfig.writeValidator();
-            }
-
-            @Override public ReadAccessor<List<String>, StringListAttribute<?>> newReadAccessor(
-                    final List<String> record) {
-                return new ReadAccessor<>(this, record);
-            }
-
-            @Override public WriteAccessor<List<String>, StringListAttribute<?>> newWriteAccessor(
-                    final List<String> record) {
-                return new WriteAccessor<>(this, record);
-            }
+        return new StringListAccessorConfig(readersByType, writersByType, readersByAttribute, writersByAttribute,
+                recordFactory, readValidator, writeValidator) {
         };
     }
 }

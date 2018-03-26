@@ -1,7 +1,7 @@
 package com.github.tinosteinort.flda.stringlist.fullexample;
 
-import com.github.tinosteinort.flda.accessor.reader.ReadAccessor;
-import com.github.tinosteinort.flda.accessor.writer.WriteAccessor;
+import com.github.tinosteinort.flda.accessor.ReadAccessor;
+import com.github.tinosteinort.flda.accessor.WriteAccessor;
 import com.github.tinosteinort.flda.stringlist.SizeValidator;
 import com.github.tinosteinort.flda.stringlist.StringListAccessorConfig;
 import com.github.tinosteinort.flda.stringlist.StringListAccessorConfigBuilder;

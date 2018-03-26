@@ -1,6 +1,6 @@
 package com.github.tinosteinort.flda.stringlist.writer;
 
-import com.github.tinosteinort.flda.accessor.writer.AttributeWriter;
+import com.github.tinosteinort.flda.accessor.AttributeWriter;
 import com.github.tinosteinort.flda.stringlist.StringListAttribute;
 
 import java.util.List;

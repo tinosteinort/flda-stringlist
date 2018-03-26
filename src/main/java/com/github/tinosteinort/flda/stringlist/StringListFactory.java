@@ -1,18 +1,18 @@
 package com.github.tinosteinort.flda.stringlist;
 
 import com.github.tinosteinort.flda.accessor.AccessorConfig;
+import com.github.tinosteinort.flda.accessor.RecordFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * This factory create new instances of {@code List<String>}, filled with
  *  a specific number of {@code null} Elements. Instances of this class are used by
  *  {@link AccessorConfig#createNewRecord()} if the factory is registered
- *  with {@link com.github.tinosteinort.flda.accessor.AccessorConfigBuilder#withRecordFactory(Supplier)}.
+ *  with {@link com.github.tinosteinort.flda.accessor.AccessorConfigBuilder#withRecordFactory(RecordFactory)}.
  */
-public class StringListFactory implements Supplier<List<String>> {
+public class StringListFactory implements RecordFactory<List<String>> {
 
     private final int size;
 
@@ -28,7 +28,7 @@ public class StringListFactory implements Supplier<List<String>> {
      *
      * @return a new instance of a {@code List<String>} with the defined number of {@code null} elements.
      */
-    @Override public List<String> get() {
+    @Override public List<String> createNewRecord() {
         final List<String> record = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             record.add(null);

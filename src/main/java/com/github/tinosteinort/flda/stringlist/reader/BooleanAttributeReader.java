@@ -1,6 +1,6 @@
 package com.github.tinosteinort.flda.stringlist.reader;
 
-import com.github.tinosteinort.flda.accessor.reader.AttributeReader;
+import com.github.tinosteinort.flda.accessor.AttributeReader;
 import com.github.tinosteinort.flda.stringlist.StringListAttribute;
 
 import java.util.List;
