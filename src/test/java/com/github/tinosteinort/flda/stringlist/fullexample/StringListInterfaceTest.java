@@ -13,37 +13,39 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
 public class StringListInterfaceTest {
 
-    private final SizeValidator validator = new SizeValidator(InterfaceDescription.ATTRIBUTE_COUNT);
+    private static final int ATTRIBUTE_COUNT = 4;
+    private static final StringListAttribute<String> FIRSTNAME = new StringListAttribute<>(String.class, 0);
+    private static final StringListAttribute<String> LASTNAME = new StringListAttribute<>(String.class, 1);
+    private static final StringListAttribute<Integer> AGE = new StringListAttribute<>(Integer.class, 2);
+    private static final StringListAttribute<Type> TYPE = new StringListAttribute<>(Type.class, 3);
+
+    private final SizeValidator validator = new SizeValidator(ATTRIBUTE_COUNT);
 
     private final StringListAccessorConfig config = new StringListAccessorConfigBuilder()
                     .withDefaultReaders()
                     .withDefaultWriters()
                     .registerReader(Type.class, new EnumAttributeReader<>(Type.class))
                     .registerWriter(Type.class, new EnumAttributeWriter<>())
-                    .withRecordFactory(new StringListFactory(InterfaceDescription.ATTRIBUTE_COUNT))
+                    .withRecordFactory(new StringListFactory(ATTRIBUTE_COUNT))
                     .withReadValidator(validator)
                     .withWriteValidator(validator)
                     .build();
 
     @Test public void readExample() {
 
-        final String lineFromFile = "Donnie;Doe;7;RABBIT";
-
-        // Convert line to Record Type
-        final List<String> record = Arrays.asList(lineFromFile.split(";"));
+        final List<String> record = Arrays.asList("Donnie", "Doe", "7", "RABBIT");
 
         final ReadAccessor<List<String>, StringListAttribute<?>> readAccessor = config.newReadAccessor(record);
 
-        assertEquals("Donnie", readAccessor.read(InterfaceDescription.FIRSTNAME));
-        assertEquals("Doe", readAccessor.read(InterfaceDescription.LASTNAME));
-        assertEquals(7, (int) readAccessor.read(InterfaceDescription.AGE));
-        assertEquals(Type.RABBIT, readAccessor.read(InterfaceDescription.TYPE));
+        assertEquals("Donnie", readAccessor.read(FIRSTNAME));
+        assertEquals("Doe", readAccessor.read(LASTNAME));
+        assertEquals(7, (int) readAccessor.read(AGE));
+        assertEquals(Type.RABBIT, readAccessor.read(TYPE));
     }
 
     @Test public void writeExample() {
@@ -52,16 +54,13 @@ public class StringListInterfaceTest {
 
         final WriteAccessor<List<String>, StringListAttribute<?>> writeAccessor = config.newWriteAccessor(record);
 
-        writeAccessor.write(InterfaceDescription.FIRSTNAME, "Bimmel");
-        writeAccessor.write(InterfaceDescription.LASTNAME, "Bammel");
-        writeAccessor.write(InterfaceDescription.AGE, 500);
-        writeAccessor.write(InterfaceDescription.TYPE, Type.HUMAN);
+        writeAccessor.write(FIRSTNAME, "Bimmel");
+        writeAccessor.write(LASTNAME, "Bammel");
+        writeAccessor.write(AGE, 500);
+        writeAccessor.write(TYPE, Type.HUMAN);
 
-        // Convert Record to String
-        final String recordAsString = record
-                .stream()
-                .collect(Collectors.joining(";"));
-
-        assertEquals("Bimmel;Bammel;500;HUMAN", recordAsString);
+        assertEquals(
+                Arrays.asList("Bimmel","Bammel","500","HUMAN"),
+                record);
     }
 }
